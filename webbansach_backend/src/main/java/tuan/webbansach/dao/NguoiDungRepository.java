@@ -7,8 +7,8 @@ import tuan.webbansach.entity.NguoiDung;
 
 @RepositoryRestResource(path = "nguoi-dung")
 public interface NguoiDungRepository extends JpaRepository<NguoiDung,Integer> {
-    boolean existsByTenDangNhap(String tenDangNhap);
-    boolean existsByEmail(String email);
+    public boolean existsByTenDangNhap(String tenDangNhap);
+    public boolean existsByEmail(String email);
 
    public NguoiDung findByTenDangNhap(String tenDangNhap);
 }
