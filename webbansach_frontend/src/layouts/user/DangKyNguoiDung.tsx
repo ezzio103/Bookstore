@@ -10,7 +10,7 @@ function DangKyNguoiDung() {
     const [matKhau, setMatKhau] = useState("");
     const [matKhauLapLai, setMatKhauLapLai] = useState("");
     const [gioiTinh, setGioiTinh] = useState('M');
-
+    const [avatar   , setAvatar] = useState<File|null>(null);
 
     // Các biến báo lỗi
     const [errorTenDangNhap, setErrorTenDangNhap] = useState("");
@@ -18,6 +18,16 @@ function DangKyNguoiDung() {
     const [errorMatKhau, setErrorMatKhau] = useState("");
     const [errorMatKhauLapLai, setErrorMatKhauLapLai] = useState("");
     const [thongBao, setThongBao] = useState("");
+
+    // Convert file to Base64
+    const getBase64 = (file: File): Promise<string | null> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result ? (reader.result as string) : null);
+            reader.onerror = (error) => reject(error);
+        });
+    };
 
     // Xử lý thông tin
     const handleSubmit = async (e: React.FormEvent) => {
@@ -38,6 +48,7 @@ function DangKyNguoiDung() {
 
         // Kiểm tra tất cả các điều kiện
         if (isTenDangNhapValid && isEmailValid && isMatKhauValid && isMatKhauLapLaiValid) {
+            const base64Avatar = avatar ? await getBase64(avatar) : null;
             try {
                 const url = 'http://localhost:8080/tai-khoan/dang-ky';
 
@@ -55,7 +66,8 @@ function DangKyNguoiDung() {
                         soDienThoai: soDienThoai,
                         gioiTinh: gioiTinh,
                         daKichHoat: 0,
-                        maKichHoat:""
+                        maKichHoat:"",
+                        avatar: base64Avatar
                         
                     })
                 }
@@ -103,8 +115,13 @@ function DangKyNguoiDung() {
         return kiemTraTenDangNhapDaTonTai(e.target.value);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////
-
+    //Xử Lý Thay Đổi File  /////////////////////////////////////////////////////////////////////////////
+    const handleAvatarChange=(e: React.ChangeEvent<HTMLInputElement>)=>{
+        if(e.target.files){
+            const file= e.target.files[0];
+            setAvatar(file);
+        }
+    }
 
     // KIỂM TRA TÊN ĐĂNG NHẬP ////////////////////////////////////////////////
     const kiemTraEmailDaTonTai = async (email: string) => {
@@ -269,6 +286,16 @@ function DangKyNguoiDung() {
                             className="form-control"
                             value={gioiTinh}
                             onChange={(e) => setGioiTinh(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="avatar" className="form-label">Giới tính</label>
+                        <input
+                            type="file"
+                            id="gioiTinh"
+                            className="form-control"
+                            accept="images/"
+                            onChange={handleAvatarChange}
                         />
                     </div>
                     <div className="text-center">

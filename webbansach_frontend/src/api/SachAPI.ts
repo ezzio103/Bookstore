@@ -31,6 +31,31 @@ export async function laySach(duongDan:string): Promise<KetQuaInterface> {
     return {ketQua: ketQua, tongSoSach: tongSoSach, tongSoTrang: tongSoTrang};
     
 }
+
+export async function lay1Sach(duongDan:string): Promise<SachModel> {
+    // const ketQua: SachModel;
+    //xac dinh endpoint
+ 
+    const responseData = await request(duongDan);
+    // lay thon tin trang
+    
+    return{
+        
+        
+            maSach: responseData.maSach,
+            tenSach: responseData.tenSach,
+            giaBan: responseData.giaBan,
+            giaNiemYet: responseData.giaNiemYet,
+            moTa:responseData.moTa,
+            soLuong:responseData.soLuong,
+            tenTacGia:responseData.tenTacGia,
+            trungBinhXepHang:responseData.trungBinhXepHang
+        
+    };
+    
+}
+
+
 export async function layToanBoSach(trangHienTai: number): Promise<KetQuaInterface> {
    
     //xac dinh endpoint, lay co dinh 4 quyen sach
@@ -58,7 +83,7 @@ export async function timKiemSach(tuKhoaTimKiem: string, maTheLoai: number ,tran
         duongDan=`http://localhost:8080/sach/search/findByTenSachContainingAndDanhSachTheLoai_MaTheLoai?sort=maSach,desc&size=4&page=${trangHienTai - 1}&tenSach=${tuKhoaTimKiem}&maTheLoai=${maTheLoai}`
     }
 
-    return laySach(duongDan);
+    return laySach(duongDan); 
 
 }
 export async function laySachTheoMaSach(maSach:number): Promise<SachModel|null> {

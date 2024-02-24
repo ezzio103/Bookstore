@@ -68,11 +68,17 @@ function Navbar({ tuKhoaTimKiem, setTuKhoaTimKiem }: NavbarProps) {
           <ul className="navbar-nav me-1">
             <li className="nav-item">
               <a className="nav-link" href="#">
-                <i className="fas fa-shopping-cart"></i>
+              <NavLink className="nav-link" aria-current="page" to="/cart">
+            <i className="fas fa-shopping-cart"></i>
+          </NavLink>
+                
               </a>
             </li>
           </ul>
-  
+          <NavLink className="nav-link login-btn" aria-current="page" to="/dangKy">
+            <span>Sign Up</span>
+          </NavLink>
+          
           {/* Biểu tượng đăng nhập */}
           <ul className="navbar-nav me-1">
             <li className="nav-item">

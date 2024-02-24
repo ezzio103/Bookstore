@@ -46,3 +46,10 @@
   background-color: rgb(235, 236, 190);
   
 }
+.login-btn{
+  display: inline-block;
+  padding: 8px 20px 8px;
+  border-radius: 6px;
+  color: #fff;
+  background-color: rgba(36, 138, 234, 0.937);
+}

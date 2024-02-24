@@ -31,6 +31,9 @@ public class NguoiDung {
     private String diaChiMuaHang;
     @Column(name = "dia_chi_giao_hang")
     private String diaChiGiaoHang;
+    @Column(name = "avatar", columnDefinition = "LONGTEXT")
+    @Lob
+    private String avatar; // Ảnh đại diện
     @Column(name = "da_kich_hoat")
     private boolean daKichHoat;
     @Column(name = "ma_kich_hoat")
@@ -171,6 +174,14 @@ public class NguoiDung {
 
     public List<DonHang> getDanhSachDonhang() {
         return danhSachDonhang;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public void setDanhSachDonhang(List<DonHang> danhSachDonhang) {

@@ -20,7 +20,7 @@ const SachProps: React.FC<SachPropsInterface> = (props) => {
             hinhAnhData => {
                 setDanhSachAnh(hinhAnhData);
                 setDangTaiDuLieu(false);
-                console.log(danhSachAnh)
+                // console.log(danhSachAnh)
                
             }
         ).catch(
