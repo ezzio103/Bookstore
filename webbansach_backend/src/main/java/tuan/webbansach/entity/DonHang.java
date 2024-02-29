@@ -52,5 +52,109 @@ public class DonHang {
     })
     @JoinColumn(name = "ma_hinh_thuc_giao_hang")
     private HinhThucGiaoHang hinhThucGiaoHang;
+
+    public int getMaDonHang() {
+        return maDonHang;
+    }
+
+    public void setMaDonHang(int maDonHang) {
+        this.maDonHang = maDonHang;
+    }
+
+    public Date getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(Date ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
+    public String getDiaChiMuaHang() {
+        return diaChiMuaHang;
+    }
+
+    public void setDiaChiMuaHang(String diaChiMuaHang) {
+        this.diaChiMuaHang = diaChiMuaHang;
+    }
+
+    public String getDiaChiNhanHang() {
+        return diaChiNhanHang;
+    }
+
+    public void setDiaChiNhanHang(String diaChiNhanHang) {
+        this.diaChiNhanHang = diaChiNhanHang;
+    }
+
+    public double getTongTienSanPham() {
+        return tongTienSanPham;
+    }
+
+    public void setTongTienSanPham(double tongTienSanPham) {
+        this.tongTienSanPham = tongTienSanPham;
+    }
+
+    public double getChiPhiGiaoHang() {
+        return chiPhiGiaoHang;
+    }
+
+    public void setChiPhiGiaoHang(double chiPhiGiaoHang) {
+        this.chiPhiGiaoHang = chiPhiGiaoHang;
+    }
+
+    public double getChiPhiThanhToan() {
+        return chiPhiThanhToan;
+    }
+
+    public void setChiPhiThanhToan(double chiPhiThanhToan) {
+        this.chiPhiThanhToan = chiPhiThanhToan;
+    }
+
+    public double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<ChiTietDonHang> getDanhSachChiTietDonHang() {
+        return danhSachChiTietDonHang;
+    }
+
+    public void setDanhSachChiTietDonHang(List<ChiTietDonHang> danhSachChiTietDonHang) {
+        this.danhSachChiTietDonHang = danhSachChiTietDonHang;
+    }
+
+    public NguoiDung getNguoiDung() {
+        return nguoiDung;
+    }
+
+    public void setNguoiDung(NguoiDung nguoiDung) {
+        this.nguoiDung = nguoiDung;
+    }
+
+    public HinhThucThanhToan getHinhThucThanhToan() {
+        return hinhThucThanhToan;
+    }
+
+    public void setHinhThucThanhToan(HinhThucThanhToan hinhThucThanhToan) {
+        this.hinhThucThanhToan = hinhThucThanhToan;
+    }
+
+    public HinhThucGiaoHang getHinhThucGiaoHang() {
+        return hinhThucGiaoHang;
+    }
+
+    public void setHinhThucGiaoHang(HinhThucGiaoHang hinhThucGiaoHang) {
+        this.hinhThucGiaoHang = hinhThucGiaoHang;
+    }
 }
 

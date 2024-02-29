@@ -5,10 +5,12 @@ import { jwtDecode } from "jwt-decode";
 interface Props {
 }
 
-interface JwtPayload {
+export interface JwtPayload {
     isAdmin: boolean;
     isStaff: boolean;
     isUser: boolean;
+    id : number;
+    role : string;
 }
 
 const RequireAdmin = <P extends object>(WrappedComponent: React.ComponentType<P>) => {

@@ -12,4 +12,5 @@ import java.util.List;
 public interface DonHangRepository extends JpaRepository<DonHang,Integer> {
     // Tìm đơn hàng theo trạng thái và id người dùng
     List<DonHang> findByStatusAndNguoiDung_MaNguoiDung(@RequestParam("status") String status, @RequestParam("maNguoiDung") int maNguoiDung);
+   public DonHang findByMaDonHang(int id);
 }

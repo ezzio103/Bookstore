@@ -3,9 +3,12 @@ import React, { useEffect, useState } from "react";
 import SachModel from "../../../models/SachModel";
 import HinhAnhModel from "../../../models/HinhAnhModel";
 import { layToanBoAnhCuaMotSach } from "../../../api/HinhAnhAPI";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import renderRating from "../../utils/SaoXepHang";
 import { dinhDangSo } from "../../utils/DinhSangSo";
+import { JwtPayload } from "../../admin/RequireAdmin";
+import { jwtDecode } from "jwt-decode";
+import { addItemIntoCart } from "../../../api/OrderItemAPI";
 interface SachPropsInterface{
     sach: SachModel;
 }
@@ -15,6 +18,19 @@ const SachProps: React.FC<SachPropsInterface> = (props) => {
     const [danhSachAnh, setDanhSachAnh] = useState<HinhAnhModel[]>([]);
    const [dangTaiDuLieu,setDangTaiDuLieu] = useState(true);
    const [baoLoi, setBaoLoi] = useState(null);
+   const navigate = useNavigate();
+   const token = localStorage.getItem('token');
+   
+   const addIntoCart = async ()=>{
+    if (!token) {
+        navigate("/dang-nhap");
+        return;
+    } else {
+        // Giải mã token
+        const decodedToken = jwtDecode(token) as JwtPayload;
+        await addItemIntoCart(decodedToken.id,maSach);
+   }}
+
     useEffect(()=>{
         layToanBoAnhCuaMotSach(maSach).then(
             hinhAnhData => {
@@ -77,7 +93,7 @@ const SachProps: React.FC<SachPropsInterface> = (props) => {
                         <a href="#" className="btn btn-secondary btn-block me-2">
                                 <i className="fas fa-heart"></i>
                             </a>
-                            <button className="btn btn-danger btn-block">
+                            <button className="btn btn-danger btn-block" onClick={addIntoCart}>
                                 <i className="fas fa-shopping-cart"></i>
                             </button>
                         </div>

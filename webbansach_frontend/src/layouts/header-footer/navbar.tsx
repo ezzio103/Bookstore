@@ -1,13 +1,15 @@
 import React, { ChangeEvent, useState } from "react";
 import { Search } from "react-bootstrap-icons";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import  Button  from "@mui/material";
+import { getRoleByToken, isToken, logout } from "../utils/JWTService";
 interface NavbarProps {
   tuKhoaTimKiem: string;
   setTuKhoaTimKiem: (tuKhoa: string) => void;
 }
 
 function Navbar({ tuKhoaTimKiem, setTuKhoaTimKiem }: NavbarProps) {
-
+  const navigate = useNavigate();
   const [tuKhoaTamThoi,setTuKhoaTamThoi] = useState('');
   const onSearchInputChange = (e: ChangeEvent<HTMLInputElement>)=>{
     setTuKhoaTamThoi(e.target.value);
@@ -62,10 +64,41 @@ function Navbar({ tuKhoaTimKiem, setTuKhoaTimKiem }: NavbarProps) {
           <button className="btn btn-outline-success" type="button" onClick={handleSearch}>
             <Search/>
           </button>
-        </div>
-  
+          </div>
+
+          
           {/* Biểu tượng giỏ hàng */}
-          <ul className="navbar-nav me-1">
+          {/* <ul className="navbar-nav me-1">
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+              <NavLink className="nav-link" aria-current="page" to="/cart">
+            <i className="fas fa-shopping-cart"></i>
+          </NavLink>
+                
+              </a>
+            </li>
+          </ul> */}
+            {/* checkToken */}
+          {!isToken() && (
+            
+						<div className="me-1">
+							<Link to={"/dang-nhap"}>
+              
+              <button className="btn btn-outline-success" type="button" >
+            Login
+          </button>
+							</Link>
+							<Link to={"/dangKy"}>
+              <button className="btn btn-outline-success" type="button" >
+            SignUp 
+          </button>
+							</Link>
+						</div>
+					)}
+  
+          {isToken() && (
+						<>
+               <ul className="navbar-nav me-1">
             <li className="nav-item">
               <a className="nav-link" href="#">
               <NavLink className="nav-link" aria-current="page" to="/cart">
@@ -75,18 +108,102 @@ function Navbar({ tuKhoaTimKiem, setTuKhoaTimKiem }: NavbarProps) {
               </a>
             </li>
           </ul>
-          <NavLink className="nav-link login-btn" aria-current="page" to="/dangKy">
-            <span>Sign Up</span>
-          </NavLink>
-          
-          {/* Biểu tượng đăng nhập */}
-          <ul className="navbar-nav me-1">
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                <i className="fas fa-user"></i>
-              </a>
-            </li>
-          </ul>
+              <div className="nav-item dropdown">
+                
+              </div>
+							{/* <!-- Notifications --> */}
+							<div className='nav-item dropdown'>
+								
+                <NavLink className="nav-link dropdown-toggle" 
+                to="#" 
+                id="navbarDropdownMenuLink2" 
+                role="button" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false">
+                <i className='fas fa-bell'></i>
+									<span className='badge rounded-pill badge-notification bg-danger'>
+										1
+									</span>
+                </NavLink>
+								<ul
+									className='dropdown-menu dropdown-menu-end'
+									aria-labelledby='navbarDropdownMenuLink2'
+								>
+									<li>
+										<a className='dropdown-item' href="#">
+											Some news
+										</a>
+									</li>
+									<li>
+										<a className='dropdown-item' href="#">
+											Another news
+										</a>
+									</li>
+									<li>
+										<a className='dropdown-item' href="#">
+											Something else here
+										</a>
+									</li>
+								</ul>
+
+							</div>
+							{/* <!-- Avatar --> */}
+							<div className='dropdown'>
+							<a
+									className='dropdown-toggle d-flex align-items-center hidden-arrow nav-link'
+									href='#'
+									id='navbarDropdownMenuAvatar'
+									role='button'
+									data-bs-toggle='dropdown'
+									aria-expanded='false'
+								>
+									tT
+								</a>
+								
+								<ul
+									className='dropdown-menu dropdown-menu-end'
+									aria-labelledby='navbarDropdownMenuAvatar'
+								>
+									<li>
+										<Link to={"/"} className='dropdown-item'>
+											Thông tin cá nhân
+										</Link>
+									</li>
+									<li>
+										<Link
+											className='dropdown-item'
+											to='/'
+										>
+											Sách yêu thích của tôi
+										</Link>
+									</li>
+									{getRoleByToken() === "ADMIN" && (
+										<li>
+											<Link
+												className='dropdown-item'
+												to='/'
+											>
+												Quản lý
+											</Link>
+										</li>
+									)}
+									<li>
+										<a
+											className='dropdown-item'
+											style={{ cursor: "pointer" }}
+											onClick={() => {
+												
+												logout(navigate);
+												
+											}}
+										>
+											Logout
+										</a>
+									</li>
+								</ul>
+							</div>
+						</>
+					)}
         </div>
       </nav>
     );

@@ -33,17 +33,23 @@ public class JwtService {
         boolean isAdmin = false;
         boolean isStaff = false;
         boolean isUser = false;
+        String role ="" ;
         if (nguoiDung!=null && nguoiDung.getDanhSachQuyen().size()>0){
             List<Quyen> list =  nguoiDung.getDanhSachQuyen();
             for (Quyen q: list) {
-                if(q.getTenQuyen().equals("ADMIN")){
-                    isAdmin = true;
+
+
+                if(q.getTenQuyen().equals("USER")){
+                    isUser = true;
+                    role = "USER";
                 }
                 if(q.getTenQuyen().equals("STAFF")){
                     isStaff = true;
+                    role = "STAFF";
                 }
-                if(q.getTenQuyen().equals("USER")){
-                    isUser = true;
+                if(q.getTenQuyen().equals("ADMIN")){
+                    isAdmin = true;
+                    role = "ADMIN";
                 }
             }
         }
@@ -52,6 +58,7 @@ public class JwtService {
         claims.put("isStaff", isStaff);
         claims.put("isUser", isUser);
         claims.put("id", nguoiDung.getMaNguoiDung());
+        claims.put("role",role);
         return createToken(claims, tenDangNhap);
     }
 

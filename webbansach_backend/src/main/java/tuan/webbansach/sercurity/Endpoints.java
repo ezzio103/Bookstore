@@ -23,6 +23,7 @@ public class Endpoints {
     public static final String[] PUBLIC_POST_ENDPOINS = {
             "/tai-khoan/dang-ky",
             "/tai-khoan/dang-nhap",
+            "/cart-item/add-item",
     };
     public static final String[] PUBLIC_PUT_ENDPOINS = {
 //

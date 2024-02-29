@@ -6,6 +6,8 @@ import HinhAnhModel from "../../../models/HinhAnhModel";
 import { dinhDangSo } from "../../utils/DinhSangSo";
 import SachModel from "../../../models/SachModel";
 import { laySachTheoMaSach } from "../../../api/SachAPI";
+import { Navigate, useNavigate } from "react-router-dom";
+import { updateQuantity } from "../../../api/OrderItemAPI";
 
 interface ItemProps {
     item: OrderItemModel;
@@ -21,30 +23,19 @@ const BookCartProps: React.FC<ItemProps> = ({item,setTotal2 } : ItemProps) => {
    const [book,setBook] = useState<SachModel>();
    const [soLuongTruoc,setSoLuongTruoc] = useState(item.quantity)
    const [soLuong,setSoLuong] = useState(item.quantity)
+    const navigate= useNavigate();
 
     //thay doi trong database
     const handleQuantityChange = async () => {
+        const token = localStorage.getItem('token');
+        
         if(item.book.giaBan)
         setTotal2(  soLuong * item.book.giaBan - soLuongTruoc * item.book.giaBan)
-        const token = localStorage.getItem('token');
+        
+
         // console.log(`http://localhost:8080/chi-tiet-don-hang/${item.id}`);
         // Thực hiện yêu cầu PATCH chỉ với trường soLuong
-         await fetch(`http://localhost:8080/chi-tiet-don-hang/${item.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ soLuong: soLuong })
-        }).then((response) => {
-            if (response.ok) {
-                // alert("Đã cập nhật số lượng sách thành công!");
-                
-                
-            } else {
-                alert("Gặp lỗi trong quá trình cập nhật số lượng!");
-            }
-        });
+         updateQuantity(item.id,soLuong,token);
     };
 
    const tangSoLuong = ()=>{

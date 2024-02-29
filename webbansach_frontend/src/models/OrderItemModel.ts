@@ -7,6 +7,7 @@ class OrderItemModel {
    book: BookModel;
    idUser?: number;
    order: OrderModel;
+   _links?: any;
 //    review?: boolean;
 
    constructor(id:number,quantity: number, book: BookModel, order: OrderModel) {
